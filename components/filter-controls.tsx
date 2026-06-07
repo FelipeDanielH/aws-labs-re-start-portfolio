@@ -19,16 +19,18 @@ export function FilterControls({
   const services = getUniqueServices()
 
   return (
-    <div className="border-b border-[#e8e8e8] bg-white">
-      <div className="mx-auto max-w-6xl px-4 py-6">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-1 flex-wrap gap-2">
+    <div className="border-b border-[#ddd] bg-white">
+      <div className="mx-auto max-w-6xl px-6 py-8">
+        {/* Categories Section */}
+        <div className="mb-6">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#888]">Categorías</p>
+          <div className="flex flex-wrap gap-2">
             <button
               onClick={() => onCategoryChange(null)}
-              className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+              className={`rounded-md px-3.5 py-2 text-sm font-medium transition-all ${
                 selectedCategory === null
-                  ? 'bg-[#001a33] text-white'
-                  : 'border border-[#e8e8e8] bg-white text-[#001a33] hover:border-[#001a33]'
+                  ? 'bg-[#001a33] text-white shadow-sm'
+                  : 'border border-[#ddd] bg-white text-[#001a33] hover:border-[#001a33] hover:bg-[#f9f9f9]'
               }`}
             >
               Todas
@@ -37,10 +39,10 @@ export function FilterControls({
               <button
                 key={category}
                 onClick={() => onCategoryChange(selectedCategory === category ? null : category)}
-                className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+                className={`rounded-md px-3.5 py-2 text-sm font-medium transition-all ${
                   selectedCategory === category
-                    ? 'bg-[#ff8c00] text-white'
-                    : 'border border-[#e8e8e8] bg-white text-[#001a33] hover:border-[#ff8c00]'
+                    ? 'bg-[#ff8c00] text-white shadow-sm'
+                    : 'border border-[#ddd] bg-white text-[#001a33] hover:border-[#ff8c00] hover:bg-[#fff8f0]'
                 }`}
               >
                 {category}
@@ -49,30 +51,34 @@ export function FilterControls({
           </div>
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          <button
-            onClick={() => onServiceChange(null)}
-            className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
-              selectedService === null
-                ? 'bg-[#001a33] text-white'
-                : 'border border-[#e8e8e8] bg-white text-[#001a33] hover:border-[#001a33]'
-            }`}
-          >
-            Todos los servicios
-          </button>
-          {services.map((service) => (
+        {/* Services Section */}
+        <div>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#888]">Servicios AWS</p>
+          <div className="flex flex-wrap gap-2">
             <button
-              key={service}
-              onClick={() => onServiceChange(selectedService === service ? null : service)}
-              className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
-                selectedService === service
-                  ? 'bg-[#ff8c00] text-white'
-                  : 'border border-[#e8e8e8] bg-white text-[#001a33] hover:border-[#ff8c00]'
+              onClick={() => onServiceChange(null)}
+              className={`rounded-md px-3.5 py-2 text-xs font-medium transition-all ${
+                selectedService === null
+                  ? 'bg-[#001a33] text-white shadow-sm'
+                  : 'border border-[#ddd] bg-white text-[#001a33] hover:border-[#001a33] hover:bg-[#f9f9f9]'
               }`}
             >
-              {service}
+              Todos
             </button>
-          ))}
+            {services.map((service) => (
+              <button
+                key={service}
+                onClick={() => onServiceChange(selectedService === service ? null : service)}
+                className={`rounded-md px-3.5 py-2 text-xs font-medium transition-all ${
+                  selectedService === service
+                    ? 'bg-[#ff8c00] text-white shadow-sm'
+                    : 'border border-[#ddd] bg-white text-[#001a33] hover:border-[#ff8c00] hover:bg-[#fff8f0]'
+                }`}
+              >
+                {service}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

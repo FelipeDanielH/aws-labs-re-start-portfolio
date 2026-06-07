@@ -26,17 +26,19 @@ export function LabsGrid({ searchValue, selectedCategory, selectedService }: Lab
   })
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
+    <div className="mx-auto max-w-6xl px-6 py-14">
       {filteredLabs.length === 0 ? (
-        <div className="rounded-lg border border-[#e8e8e8] bg-[#f8f8f8] p-12 text-center">
-          <p className="text-[#999999]">No hay laboratorios que coincidan con los filtros seleccionados.</p>
+        <div className="rounded-md border border-[#ddd] bg-[#fafafa] p-16 text-center">
+          <p className="text-sm text-[#888]">No hay laboratorios que coincidan con los filtros seleccionados.</p>
         </div>
       ) : (
         <div>
-          <p className="mb-6 text-sm text-[#999999]">
-            Mostrando {filteredLabs.length} de {mockLabs.length} laboratorios
-          </p>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mb-8 flex items-baseline justify-between">
+            <p className="text-sm font-medium text-[#666]">
+              <span className="font-semibold text-[#001a33]">{filteredLabs.length}</span> de {mockLabs.length} laboratorios
+            </p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {filteredLabs.map((lab) => (
               <LabCard key={lab.id} lab={lab} />
             ))}
