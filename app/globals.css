@@ -1,6 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #001a33;
+  --color-card: #f8f8f8;
+  --color-card-border: #e8e8e8;
+  --color-primary: #001a33;
+  --color-accent: #ff8c00;
+  --color-muted: #999999;
+  --color-muted-light: #e0e0e0;
+  
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
 
 * {
   margin: 0;
@@ -9,16 +22,16 @@
 }
 
 html {
-  background-color: #ffffff;
+  background-color: rgb(var(--color-background));
 }
 
 body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
-  color: #001a33;
-  background-color: #ffffff;
+  color: rgb(var(--color-foreground));
+  background-color: rgb(var(--color-background));
   line-height: 1.5;
 }
 
 input::placeholder {
-  color: #999999;
+  color: rgb(var(--color-muted));
 }
