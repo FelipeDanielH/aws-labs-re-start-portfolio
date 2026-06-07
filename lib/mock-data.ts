@@ -196,12 +196,17 @@ export const getUniqueServices = (): AWSService[] => {
 
 export const getStats = () => {
   const documentedCount = mockLabs.filter((lab) => lab.status === 'documented').length
+  const inProgressCount = mockLabs.filter((lab) => lab.status === 'in-progress').length
+  const plannedCount = mockLabs.filter((lab) => lab.status === 'planned').length
   const totalServices = getUniqueServices().length
   const categoriesCount = CATEGORIES.length
   const screenshotsCount = documentedCount * 3
 
   return {
+    total: mockLabs.length,
     documented: documentedCount,
+    inProgress: inProgressCount,
+    planned: plannedCount,
     services: totalServices,
     categories: categoriesCount,
     screenshots: screenshotsCount,
