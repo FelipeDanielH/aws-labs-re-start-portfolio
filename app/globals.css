@@ -64,6 +64,14 @@ input::placeholder {
   background-size: 22px 22px;
 }
 
+/* Blueprint grid: thin orthogonal lines for the masthead canvas */
+.bg-blueprint {
+  background-image:
+    linear-gradient(to right, rgba(27, 73, 101, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(27, 73, 101, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
 /* Thin command-panel frame accent line */
 .panel-rule {
   background-image: linear-gradient(
@@ -73,4 +81,16 @@ input::placeholder {
     var(--color-line) 32px,
     var(--color-line) 100%
   );
+}
+
+/* Section label with leading node marker */
+.section-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: var(--color-accent);
+  margin-right: 8px;
+  vertical-align: middle;
 }
