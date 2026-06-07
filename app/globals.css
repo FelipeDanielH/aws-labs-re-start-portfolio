@@ -1,15 +1,36 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-background: #ffffff;
-  --color-foreground: #001a33;
-  --color-card: #f8f8f8;
-  --color-card-border: #e8e8e8;
-  --color-primary: #001a33;
-  --color-accent: #ff8c00;
-  --color-muted: #999999;
-  --color-muted-light: #e0e0e0;
-  
+  /* Surfaces */
+  --color-canvas: #eef2f6;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f6f8fb;
+
+  /* Text */
+  --color-navy: #0a2540;
+  --color-navy-soft: #33485f;
+  --color-ink-muted: #64748b;
+
+  /* Borders */
+  --color-line: #dde4ec;
+  --color-line-strong: #c6d2df;
+
+  /* AWS-inspired restrained orange */
+  --color-accent: #ec7211;
+  --color-accent-soft: #fdf0e3;
+
+  /* Steel blue secondary accent */
+  --color-steel: #1b4965;
+  --color-steel-soft: #e8eef3;
+
+  /* Status */
+  --color-ok: #1f7a4d;
+  --color-ok-soft: #e7f4ec;
+  --color-info: #1f5fa8;
+  --color-info-soft: #e7eef8;
+  --color-pending: #6b7280;
+  --color-pending-soft: #f1f3f5;
+
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
@@ -22,16 +43,34 @@
 }
 
 html {
-  background-color: rgb(var(--color-background));
+  background-color: var(--color-canvas);
 }
 
 body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
-  color: rgb(var(--color-foreground));
-  background-color: rgb(var(--color-background));
+  color: var(--color-navy);
+  background-color: var(--color-canvas);
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 input::placeholder {
-  color: rgb(var(--color-muted));
+  color: var(--color-ink-muted);
+}
+
+/* Subtle infrastructure motif: faint dotted node grid */
+.bg-node-grid {
+  background-image: radial-gradient(circle, rgba(27, 73, 101, 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Thin command-panel frame accent line */
+.panel-rule {
+  background-image: linear-gradient(
+    to right,
+    var(--color-accent) 0,
+    var(--color-accent) 32px,
+    var(--color-line) 32px,
+    var(--color-line) 100%
+  );
 }
