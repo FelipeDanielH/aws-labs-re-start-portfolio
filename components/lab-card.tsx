@@ -1,74 +1,77 @@
+import Link from 'next/link'
+import { ArrowRight, FileCheck2, NotebookPen } from 'lucide-react'
 import type { Lab } from '@/lib/mock-data'
-import { ArrowRight } from 'lucide-react'
+import { StatusBadge } from './status-badge'
+import { ServiceTag } from './service-tag'
+import { CategoryBadge } from './category-badge'
 
 interface LabCardProps {
   lab: Lab
 }
 
 export function LabCard({ lab }: LabCardProps) {
-  const statusConfig = {
-    documented: {
-      label: 'Documentado',
-      bgColor: '#e8f5e9',
-      textColor: '#2e7d32',
-    },
-    'in-progress': {
-      label: 'En progreso',
-      bgColor: '#e3f2fd',
-      textColor: '#1565c0',
-    },
-    planned: {
-      label: 'Planificado',
-      bgColor: '#f5f5f5',
-      textColor: '#616161',
-    },
-  }
-
-  const statusInfo = statusConfig[lab.status]
+  const hasMeta = lab.evidenceReady || lab.hasOperationalNotes
 
   return (
-    <div className="group flex flex-col overflow-hidden rounded-md border border-[#ddd] bg-white transition-all hover:border-[#ff8c00] hover:shadow-lg hover:shadow-orange-100">
-      <div className="flex-1 p-5">
-        <div className="mb-3 flex items-baseline justify-between gap-2">
-          <span className="inline-block h-6 rounded-sm bg-[#001a33] px-2 py-0.5 text-xs font-semibold text-white">
-            Lab {lab.number}
-          </span>
-          <span
-            className="rounded-sm px-2.5 py-1 text-xs font-medium"
-            style={{ backgroundColor: statusInfo.bgColor, color: statusInfo.textColor }}
-          >
-            {statusInfo.label}
-          </span>
+    <Link
+      href={`/labs/${lab.slug}`}
+      className="group flex flex-col rounded-lg border border-line bg-surface shadow-sm transition-all hover:-translate-y-0.5 hover:border-line-strong hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+    >
+      {/* Document header bar */}
+      <div className="flex items-center justify-between gap-2 border-b border-line px-5 py-3">
+        <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-ink-muted">
+          Lab&nbsp;{String(lab.number).padStart(2, '0')}
+        </span>
+        <StatusBadge status={lab.status} />
+      </div>
+
+      <div className="flex flex-1 flex-col p-5">
+        <div className="mb-3">
+          <CategoryBadge category={lab.category} />
         </div>
 
-        <h3 className="mb-2 text-base font-semibold text-[#001a33]">{lab.title}</h3>
+        <h3 className="text-pretty text-[15px] font-semibold leading-snug text-navy transition-colors group-hover:text-steel">
+          {lab.title}
+        </h3>
 
-        <p className="mb-4 text-sm leading-relaxed text-[#666]">{lab.summary}</p>
+        <p className="mt-2 text-pretty text-[13px] leading-relaxed text-ink-muted">
+          {lab.summary}
+        </p>
 
-        <div className="space-y-3 text-xs">
-          <div>
-            <span className="font-semibold text-[#001a33]">Categoría:</span>
-            <span className="ml-2 text-[#666]">{lab.category}</span>
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            {lab.services.map((service) => (
-              <span
-                key={service}
-                className="rounded-sm border border-[#ddd] bg-[#f9f9f9] px-2.5 py-1 font-medium text-[#001a33]"
-              >
-                {service}
+        {/* Service tags */}
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {lab.services.map((service) => (
+            <ServiceTag key={service} service={service} />
+          ))}
+        </div>
+
+        {/* Optional operational metadata row */}
+        {hasMeta && (
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5">
+            {lab.evidenceReady && (
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-ok">
+                <FileCheck2 className="h-3.5 w-3.5" aria-hidden="true" />
+                Evidencia lista
               </span>
-            ))}
+            )}
+            {lab.hasOperationalNotes && (
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-steel">
+                <NotebookPen className="h-3.5 w-3.5" aria-hidden="true" />
+                Notas operacionales
+              </span>
+            )}
           </div>
+        )}
+
+        {/* Footer action */}
+        <div className="mt-5 flex items-center gap-1.5 border-t border-line pt-4 text-[13px] font-semibold text-accent">
+          Ver reporte
+          <ArrowRight
+            className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+            aria-hidden="true"
+          />
         </div>
       </div>
-
-      <div className="border-t border-[#f0f0f0] px-5 py-4">
-        <button className="inline-flex items-center gap-2 text-sm font-semibold text-[#ff8c00] transition-all group-hover:gap-3">
-          Ver reporte
-          <ArrowRight className="h-3.5 w-3.5" />
-        </button>
-      </div>
-    </div>
+    </Link>
   )
 }
